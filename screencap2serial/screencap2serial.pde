@@ -40,6 +40,8 @@ import processing.serial.*;
 import java.awt.Rectangle;
 
 float gamma = 1.7;
+//overall brightness level. 0-1
+float Brightness = 0.5;
 
 int numPorts=0;  // the number of serial ports in use
 int maxPorts=24; // maximum number of serial ports
@@ -144,9 +146,9 @@ int colorWiring(int c) {
   int red = (c & 0xFF0000) >> 16;
   int green = (c & 0x00FF00) >> 8;
   int blue = (c & 0x0000FF);
-  red = gammatable[red];
-  green = gammatable[green];
-  blue = gammatable[blue];
+  red = (int)(gammatable[red] * Brightness);
+  green = (int)(gammatable[green] * Brightness);
+  blue = (int)(gammatable[blue] * Brightness);
   return (green << 16) | (red << 8) | (blue); // GRB - most common wiring
 }
 
